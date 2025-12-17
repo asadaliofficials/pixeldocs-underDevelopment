@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
+import { TableKit } from '@tiptap/extension-table';
 
 const Editor = () => {
 	const editor = useEditor({
@@ -19,8 +20,26 @@ const Editor = () => {
 			TaskItem.configure({
 				nested: true,
 			}),
+			TableKit.configure({
+				table: { resizable: true },
+			}),
 		],
-		content: '',
+		content: `
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th colspan="3">Description</th>
+            </tr>
+            <tr>
+              <td>Cyndi Lauper</td>
+              <td>Singer</td>
+              <td>Songwriter</td>
+              <td>Actress</td>
+            </tr>
+          </tbody>
+        </table>
+      `,
 		// Don't render immediately on the server to avoid SSR issues
 		immediatelyRender: false,
 	});
