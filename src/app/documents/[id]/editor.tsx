@@ -2,6 +2,7 @@
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { TaskItem, TaskList } from '@tiptap/extension-list';
 
 const Editor = () => {
 	const editor = useEditor({
@@ -12,8 +13,14 @@ const Editor = () => {
 				style: 'padding-left: 56px; padding-right: 56px;',
 			},
 		},
-		extensions: [StarterKit],
-		content: '<p>Hello World! 🌎️</p>',
+		extensions: [
+			StarterKit,
+			TaskList,
+			TaskItem.configure({
+				nested: true,
+			}),
+		],
+		content: '',
 		// Don't render immediately on the server to avoid SSR issues
 		immediatelyRender: false,
 	});
