@@ -4,6 +4,8 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { TableKit } from '@tiptap/extension-table';
+import Image from '@tiptap/extension-image';
+import ImageResize from 'tiptap-extension-resize-image';
 
 const Editor = () => {
 	const editor = useEditor({
@@ -17,6 +19,8 @@ const Editor = () => {
 		extensions: [
 			StarterKit,
 			TaskList,
+			ImageResize,
+			Image,
 			TaskItem.configure({
 				nested: true,
 			}),
