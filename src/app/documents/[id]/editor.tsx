@@ -7,8 +7,14 @@ import { TableKit } from '@tiptap/extension-table';
 import Image from '@tiptap/extension-image';
 import ImageResize from 'tiptap-extension-resize-image';
 
+import { useEditorStore } from '@/app/store/use-editor-store';
+
 const Editor = () => {
+	const { setEditor } = useEditorStore();
 	const editor = useEditor({
+		onCreate({ editor }) {
+			setEditor(editor);
+		},
 		editorProps: {
 			attributes: {
 				class:
