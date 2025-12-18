@@ -79,8 +79,8 @@ const Editor = () => {
 	});
 
 	return (
-		<div className="size-full overflow-x-auto bg-[#F9FBFD] px-4 pirnt:p-0 print::bg-white print:overflow-visible">
-			<div className="min-w-max flex justify-center w-204 py-4 mx-auto print:w-full print:min-w-0">
+		<div className='size-full overflow-x-auto bg-[#F9FBFD] px-4 pirnt:p-0 print::bg-white print:overflow-visible'>
+			<div className='min-w-max flex justify-center w-204 py-4 mx-auto print:w-full print:min-w-0'>
 				<EditorContent editor={editor} />
 			</div>
 		</div>
