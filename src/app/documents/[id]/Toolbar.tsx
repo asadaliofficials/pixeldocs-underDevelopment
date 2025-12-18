@@ -23,7 +23,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 interface ToolbarButtonProps {
 	onClick?: () => void;
@@ -40,7 +40,7 @@ const ToolbarButton = ({ onClick, isActive, icon: Icon }: ToolbarButtonProps) =>
 				isActive ? 'bg-neutral-200/80' : ''
 			)}
 		>
-			<Icon className="size-4" />
+			<Icon className='size-4' />
 		</button>
 	);
 };
@@ -64,14 +64,14 @@ const FontFamilyButton = () => {
 						'h-7 w-30 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<span className="truncate">
+					<span className='truncate'>
 						{editor?.getAttributes('textStyle').fontFamily || 'Arial'}
 						{console.log(editor?.getAttributes('textStyle').fontFamily)}
 					</span>
-					<ChevronDownIcon className="ml-2 size-4 shrink-0" />
+					<ChevronDownIcon className='ml-2 size-4 shrink-0' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-1 flex flex-col gap-y-1 bg-white border border-neutral-200 shadow-md min-w-[160px]">
+			<DropdownMenuContent className='p-1 flex flex-col gap-y-1 bg-white border border-neutral-200 shadow-md min-w-[160px]'>
 				{fonts.map(({ label, value }) => (
 					<button
 						onClick={() => editor?.chain().focus().setFontFamily(value).run()}
@@ -79,11 +79,11 @@ const FontFamilyButton = () => {
 						className={cn(
 							// Added px-2 for horizontal space and w-full for full-width hover
 							'flex items-center px-2 py-1 rounded-sm hover:bg-neutral-100 w-full text-left',
-							editor?.getAttributes('testStyle').FontFamily === value && 'bg-neutral-200/80'
+							editor?.getAttributes('textStyle').fontFamily === value && 'bg-neutral-200/80'  
 						)}
 						style={{ fontFamily: value }}
 					>
-						<span className="text-sm">{label}</span>
+						<span className='text-sm'>{label}</span>
 					</button>
 				))}
 			</DropdownMenuContent>
@@ -166,24 +166,24 @@ const Toolbar = () => {
 		],
 	];
 	return (
-		<div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
+		<div className='bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-10 flex items-center gap-x-0.5 overflow-x-auto'>
 			{sections[0].map(item => (
 				<ToolbarButton key={item.label} {...item} />
 			))}
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			{/* TODO: font family */}
 			<FontFamilyButton />
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			{/* TODO: Headings */}
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			{/* TODO: Font size */}
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			{sections[1].map(item => (
 				<ToolbarButton key={item.label} {...item} />
 			))}
 			{/* TODO: Text Color */}
 			{/* TODO: Highlight Color */}
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			{/* TODO:  Link */}
 			{/* TODO:  Image */}
 			{/* TODO:  Align*/}
