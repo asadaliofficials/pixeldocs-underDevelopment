@@ -2,6 +2,7 @@
 import { cn } from '@/lib/utils';
 import {
 	BoldIcon,
+	ChevronDownIcon,
 	ItalicIcon,
 	ListTodoIcon,
 	LucideIcon,
@@ -17,6 +18,13 @@ import {
 import { useEditorStore } from '@/app/store/use-editor-store';
 import { Separator } from '@/components/ui/separator';
 
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from '@radix-ui/react-dropdown-menu';
+
 interface ToolbarButtonProps {
 	onClick?: () => void;
 	isActive?: boolean;
@@ -27,12 +35,59 @@ const ToolbarButton = ({ onClick, isActive, icon: Icon }: ToolbarButtonProps) =>
 	return (
 		<button
 			onClick={onClick}
-			className={`text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 ${
+			className={cn(
+				'text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
 				isActive ? 'bg-neutral-200/80' : ''
-			}`}
+			)}
 		>
 			<Icon className="size-4" />
 		</button>
+	);
+};
+
+const FontFamilyButton = () => {
+	const { editor } = useEditorStore();
+
+	const fonts = [
+		{ label: 'Arial', value: 'Arial' },
+		{ label: 'Times New Roman', value: 'Times New Roman' },
+		{ label: 'Courier New', value: 'Courier New' },
+		{ label: 'Georgia', value: 'Georgia' },
+		{ label: 'Verdana', value: 'Verdana' },
+	];
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<button
+					className={
+						'h-7 w-30 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
+					}
+				>
+					<span className="truncate">
+						{editor?.getAttributes('textStyle').fontFamily || 'Arial'}
+						{console.log(editor?.getAttributes('textStyle').fontFamily)}
+					</span>
+					<ChevronDownIcon className="ml-2 size-4 shrink-0" />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="p-1 flex flex-col gap-y-1 bg-white border border-neutral-200 shadow-md min-w-[160px]">
+				{fonts.map(({ label, value }) => (
+					<button
+						onClick={() => editor?.chain().focus().setFontFamily(value).run()}
+						key={value}
+						className={cn(
+							// Added px-2 for horizontal space and w-full for full-width hover
+							'flex items-center px-2 py-1 rounded-sm hover:bg-neutral-100 w-full text-left',
+							editor?.getAttributes('testStyle').FontFamily === value && 'bg-neutral-200/80'
+						)}
+						style={{ fontFamily: value }}
+					>
+						<span className="text-sm">{label}</span>
+					</button>
+				))}
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 };
 
@@ -117,6 +172,7 @@ const Toolbar = () => {
 			))}
 			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
 			{/* TODO: font family */}
+			<FontFamilyButton />
 			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
 			{/* TODO: Headings */}
 			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
