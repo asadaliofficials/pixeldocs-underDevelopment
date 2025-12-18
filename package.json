@@ -9,6 +9,7 @@
 		"lint": "eslint"
 	},
 	"dependencies": {
+		"@radix-ui/react-separator": "^1.1.8",
 		"@radix-ui/react-slot": "^1.2.4",
 		"@tiptap/extension-image": "^3.13.0",
 		"@tiptap/extension-list": "^3.13.0",
