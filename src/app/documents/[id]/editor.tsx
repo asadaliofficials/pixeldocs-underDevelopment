@@ -6,6 +6,7 @@ import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { TableKit } from '@tiptap/extension-table';
 import Image from '@tiptap/extension-image';
 import ImageResize from 'tiptap-extension-resize-image';
+import { FontFamily, TextStyle } from '@tiptap/extension-text-style';
 
 import { useEditorStore } from '@/app/store/use-editor-store';
 
@@ -48,6 +49,8 @@ const Editor = () => {
 			TaskList,
 			ImageResize,
 			Image,
+			FontFamily,
+			TextStyle,
 			TaskItem.configure({
 				nested: true,
 			}),
