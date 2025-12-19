@@ -22,6 +22,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { type ColorResult, SketchPicker } from 'react-color';
 
 import { type Level } from '@tiptap/extension-heading';
 
@@ -155,6 +156,33 @@ const HeadingButton = () => {
 	);
 };
 
+const TextColorButton = () => {
+	const { editor } = useEditorStore();
+	const value = editor?.getAttributes('textStyle').color || '#000000';
+
+	const onChange = (color: ColorResult) => {
+		editor?.chain().focus().setColor(color.hex).run();
+	};
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<button
+					className={
+						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
+					}
+				>
+					<span className="text-xs">A</span>
+					<div className="w-full h-0.5" style={{ backgroundColor: value }}></div>
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="p-0">
+				<SketchPicker onChange={onChange} color={value} />
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+};
+
 const Toolbar = () => {
 	const { editor } = useEditorStore();
 	const sections: {
@@ -244,6 +272,8 @@ const Toolbar = () => {
 			{sections[1].map(tool => (
 				<ToolbarButton key={tool.label} {...tool} />
 			))}
+			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<TextColorButton />
 			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
 			{sections[2].map(tool => (
 				<ToolbarButton key={tool.label} {...tool} />

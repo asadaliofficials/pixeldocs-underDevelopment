@@ -12,6 +12,8 @@ import ResizeImage from 'tiptap-extension-resize-image';
 import underLine from '@tiptap/extension-underline';
 import fontFamily from '@tiptap/extension-font-family';
 import TextStyle from '@tiptap/extension-text-style';
+import Highlight from '@tiptap/extension-highlight';
+import { Color } from '@tiptap/extension-color';
 
 import { useEditorStore } from '@/store/use-editor-store';
 
@@ -39,6 +41,8 @@ const Editor = () => {
 			underLine,
 			fontFamily,
 			TextStyle,
+			Highlight.configure({ multicolor: true }),
+			Color,
 		],
 		onCreate: ({ editor }) => {
 			setEditor(editor);
