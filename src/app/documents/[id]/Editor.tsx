@@ -15,6 +15,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
+import TextAlign from '@tiptap/extension-text-align';
 
 import { useEditorStore } from '@/store/use-editor-store';
 
@@ -42,6 +43,9 @@ const Editor = () => {
 			underLine,
 			fontFamily,
 			TextStyle,
+			TextAlign.configure({
+				types: ['heading', 'paragraph', 'tableCell'],
+			}),
 			Highlight.configure({ multicolor: true }),
 			Color,
 			Link.configure({
@@ -74,20 +78,7 @@ const Editor = () => {
 		onContentError: ({ editor }) => {
 			setEditor(editor);
 		},
-		content: `<table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th colspan="3">Description</th>
-            </tr>
-            <tr>
-              <td>Cyndi Lauper</td>
-              <td>Singer</td>
-              <td>Songwriter</td>
-              <td>Actress</td>
-            </tr>
-          </tbody>
-        </table>`,
+		content: '',
 	});
 	return (
 		<div className="size-full overflow-x-auto bg-[#F9FBFD] px-4 print:p-0 print:bg-white print:overflow-visible">
