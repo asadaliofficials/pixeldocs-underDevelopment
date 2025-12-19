@@ -23,19 +23,19 @@ export const LineHeightExtension = Extension.create({
 			{
 				types: this.options.types,
 				attributes: {
-					LineHeight: {
+					lineHeight: {
 						default: this.options.defaultLineHeight,
 						renderHTML: attributes => {
-							if (!attributes.LineHeight) {
+							if (!attributes.lineHeight) {
 								return {};
 							}
 							return {
-								style: `line-height: ${attributes.LineHeight}`,
+								style: `line-height: ${attributes.lineHeight}`,
 							};
 						},
 						parseHTML: element => {
 							return {
-								LineHeight: element.style.lineHeight || this.options.defaultLineHeight,
+								lineHeight: element.style.lineHeight || this.options.defaultLineHeight,
 							};
 						},
 					},
@@ -46,39 +46,39 @@ export const LineHeightExtension = Extension.create({
 	addCommands() {
 		return {
 			setLineHeight:
-				(LineHeight: string) =>
-				({ tr, state, dispatch }: any) => {
+				(lineHeight: string) =>
+				({ tr, state, dispatch }) => {
 					const { selection } = state;
-					tr = tr.setSelection(selection);
+					let transaction = tr.setSelection(selection);
 
 					const { from, to } = selection;
-					state.doc.nodesBetween(from, to, (node: any, pos: any) => {
+					state.doc.nodesBetween(from, to, (node, pos) => {
 						if (this.options.types.includes(node.type.name)) {
-							tr = tr.setNodeMarkup(pos, undefined, {
+							transaction = transaction.setNodeMarkup(pos, undefined, {
 								...node.attrs,
-								LineHeight,
+								lineHeight,
 							});
 						}
 					});
-					if (dispatch) dispatch(tr);
+					if (dispatch) dispatch(transaction);
 					return true;
 				},
-			unSetLineHeight:
+			unsetLineHeight:
 				() =>
-				({ tr, state, dispatch }: any) => {
+				({ tr, state, dispatch }) => {
 					const { selection } = state;
-					tr = tr.setSelection(selection);
+					let transaction = tr.setSelection(selection);
 
 					const { from, to } = selection;
-					state.doc.nodesBetween(from, to, (node: any, pos: any) => {
+					state.doc.nodesBetween(from, to, (node, pos) => {
 						if (this.options.types.includes(node.type.name)) {
-							tr = tr.setNodeMarkup(pos, undefined, {
+							transaction = transaction.setNodeMarkup(pos, undefined, {
 								...node.attrs,
-								LineHeight: this.options.defaultLineHeight,
+								lineHeight: this.options.defaultLineHeight,
 							});
 						}
 					});
-					if (dispatch) dispatch(tr);
+					if (dispatch) dispatch(transaction);
 					return true;
 				},
 		};

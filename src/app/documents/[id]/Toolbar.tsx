@@ -6,10 +6,8 @@ import {
 	AlignLeftIcon,
 	AlignRightIcon,
 	ChevronDownIcon,
-	Heading,
 	HighlighterIcon,
 	ImageIcon,
-	ImagesIcon,
 	Link2Icon,
 	ListCollapseIcon,
 	ListIcon,
@@ -40,7 +38,6 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuRadioItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { type ColorResult, SketchPicker } from 'react-color';
@@ -63,7 +60,7 @@ interface ToolbarButtonProps {
 	label?: string;
 }
 
-const ToolbarButton = ({ onClick, isActive, icon: Icon, label }: ToolbarButtonProps) => {
+const ToolbarButton = ({ onClick, isActive, icon: Icon }: ToolbarButtonProps) => {
 	return (
 		<button
 			onClick={onClick}
