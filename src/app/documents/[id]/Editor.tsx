@@ -10,6 +10,8 @@ import TableCell from '@tiptap/extension-table-cell';
 import Image from '@tiptap/extension-image';
 import ResizeImage from 'tiptap-extension-resize-image';
 import underLine from '@tiptap/extension-underline';
+import fontFamily from '@tiptap/extension-font-family';
+import TextStyle from '@tiptap/extension-text-style';
 
 import { useEditorStore } from '@/store/use-editor-store';
 
@@ -35,6 +37,8 @@ const Editor = () => {
 			Image,
 			ResizeImage,
 			underLine,
+			fontFamily,
+			TextStyle,
 		],
 		onCreate: ({ editor }) => {
 			setEditor(editor);
