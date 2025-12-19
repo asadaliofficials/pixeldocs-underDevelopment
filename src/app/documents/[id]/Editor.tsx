@@ -17,6 +17,9 @@ import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 
+// Custom Extension Imports
+import { FontSizeExtension } from '@/extensions/font-size';
+
 import { useEditorStore } from '@/store/use-editor-store';
 
 const Editor = () => {
@@ -32,6 +35,7 @@ const Editor = () => {
 		},
 		extensions: [
 			StarterKit,
+			FontSizeExtension,
 			TaskList,
 			TaskItem.configure({ nested: true }),
 			Table,
