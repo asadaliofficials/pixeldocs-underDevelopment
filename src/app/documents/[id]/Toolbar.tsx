@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
-import { ChevronDownIcon, Heading, LucideIcon } from 'lucide-react';
-import React from 'react';
+import { ChevronDownIcon, Heading, HighlighterIcon, Link2Icon, LucideIcon } from 'lucide-react';
+import React, { useState } from 'react';
 
 import {
 	Undo2Icon,
@@ -25,6 +25,8 @@ import {
 import { type ColorResult, SketchPicker } from 'react-color';
 
 import { type Level } from '@tiptap/extension-heading';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 interface ToolbarButtonProps {
 	onClick?: () => void;
@@ -156,6 +158,33 @@ const HeadingButton = () => {
 	);
 };
 
+const HighlightColorButton = () => {
+	const { editor } = useEditorStore();
+
+	const value = editor?.getAttributes('highlight').color || '#FFFFFF';
+
+	const onChange = (color: ColorResult) => {
+		editor?.chain().focus().setHighlight({ color: color.hex }).run();
+	};
+
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<button
+					className={
+						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
+					}
+				>
+					<HighlighterIcon className="size-4" />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="p-0">
+				<SketchPicker onChange={onChange} color={value} />
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+};
+
 const TextColorButton = () => {
 	const { editor } = useEditorStore();
 	const value = editor?.getAttributes('textStyle').color || '#000000';
@@ -178,6 +207,40 @@ const TextColorButton = () => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="p-0">
 				<SketchPicker onChange={onChange} color={value} />
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+};
+
+const LinkButton = () => {
+	const { editor } = useEditorStore();
+	const [value, setValue] = useState(editor?.getAttributes('link').href || '');
+
+	const onChange = (href: string) => {
+		editor?.chain().focus().extendMarkRange('link').setLink({ href }).run();
+		setValue('');
+	};
+
+	return (
+		<DropdownMenu
+			onOpenChange={open => setValue(open ? editor?.getAttributes('link').href || '' : '')}
+		>
+			<DropdownMenuTrigger asChild>
+				<button
+					className={
+						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
+					}
+				>
+					<Link2Icon className="size-4" />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
+				<Input
+					placeholder="https://example.com"
+					value={value}
+					onChange={e => setValue(e.target.value)}
+				/>
+				<Button onClick={() => onChange(value)}>OK</Button>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
@@ -272,8 +335,10 @@ const Toolbar = () => {
 			{sections[1].map(tool => (
 				<ToolbarButton key={tool.label} {...tool} />
 			))}
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
 			<TextColorButton />
+			<HighlightColorButton />
+			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<LinkButton />
 			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
 			{sections[2].map(tool => (
 				<ToolbarButton key={tool.label} {...tool} />

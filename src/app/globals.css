@@ -254,4 +254,15 @@ body {
 			outline: 3px solid #007bff;
 		}
 	}
+
+	/* Link styles */
+	a {
+		color: #007bff;
+		cursor: pointer;
+
+		&:hover {
+			color: #056fe0;
+			text-decoration: underline;
+		}
+	}
 }
