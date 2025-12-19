@@ -37,10 +37,7 @@ const Editor = () => {
 		extensions: [
 			StarterKit,
 			FontSizeExtension,
-			LineHeightExtension.configure({
-				types: ['paragraph', 'heading'],
-				defaultLineHeight: 'normal',
-			}),
+			LineHeightExtension,
 			TaskList,
 			TaskItem.configure({ nested: true }),
 			Table,
