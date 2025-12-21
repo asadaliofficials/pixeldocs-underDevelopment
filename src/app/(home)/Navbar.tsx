@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import SearchInput from './SearchInput';
+import { UserButton } from '@clerk/nextjs';
 
 const Navbar = () => {
 	return (
@@ -15,7 +16,7 @@ const Navbar = () => {
 			<React.Suspense fallback={<div />}>
 				<SearchInput />
 			</React.Suspense>
-			<div />
+			<UserButton />
 		</nav>
 	);
 };
