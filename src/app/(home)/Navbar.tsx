@@ -12,7 +12,9 @@ const Navbar = () => {
 				</Link>
 				<h3 className='text-xl'>Pixel Docs</h3>
 			</div>
-			<SearchInput />
+			<React.Suspense fallback={<div />}>
+				<SearchInput />
+			</React.Suspense>
 			<div />
 		</nav>
 	);
