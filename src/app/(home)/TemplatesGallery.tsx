@@ -1,4 +1,6 @@
 'use client';
+import { useRouter } from 'next/navigation';
+import { api } from '../../../convex/_generated/api';
 import {
 	Carousel,
 	CarouselContent,
@@ -8,21 +10,36 @@ import {
 } from '@/components/ui/carousel';
 import { templates } from '@/constants/templates';
 import { cn } from '@/lib/utils';
+import { useMutation } from 'convex/react';
 import React, { useState } from 'react';
 
 const TemplatesGallery = () => {
-	const [isCreating, setIsCreating] = useState();
+	const router = useRouter();
+	const create = useMutation(api.documents.create);
+	const [isCreating, setIsCreating] = useState(false);
+
+	const onTemplateClick = (title: string, initialContent: string) => {
+		setIsCreating(true);
+		create({ title, initialContent })
+			.then(documentId => {
+				router.push(`/documents/${documentId}`);
+			})
+			.finally(() => {
+				setIsCreating(false);
+			});
+		setIsCreating(false);
+	};
 
 	return (
-		<div className='bg-[#F1F3F4]'>
-			<div className='max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4'>
-				<h3 className='font-medium'>Start a new Document</h3>
+		<div className="bg-[#F1F3F4]">
+			<div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
+				<h3 className="font-medium">Start a new Document</h3>
 				<Carousel>
-					<CarouselContent className='-ml-4'>
+					<CarouselContent className="-ml-4">
 						{templates.map(template => (
 							<CarouselItem
 								key={template.id}
-								className='basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.285714%] pl-4'
+								className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.285714%] pl-4"
 							>
 								<div
 									className={cn(
@@ -32,16 +49,17 @@ const TemplatesGallery = () => {
 								>
 									<button
 										disabled={isCreating}
-										onClick={() => {}}
+										// TODO: Pass proper initial content here
+										onClick={() => onTemplateClick(template.lable, '')}
 										style={{
 											backgroundImage: `url(${template.imageUrl})`,
 											backgroundSize: 'cover',
 											backgroundPosition: 'center',
 											backgroundRepeat: 'no-repeat',
 										}}
-										className='size-full hover:border-blue-500 rounded-sm border hover:bg-blue-50 transition flex flex-col items-center justify-center gap-y-4 bg-white'
+										className="size-full hover:border-blue-500 rounded-sm border hover:bg-blue-50 transition flex flex-col items-center justify-center gap-y-4 bg-white"
 									/>
-									<p className='text-sm font-medium truncate'>{template.lable}</p>
+									<p className="text-sm font-medium truncate">{template.lable}</p>
 								</div>
 							</CarouselItem>
 						))}
