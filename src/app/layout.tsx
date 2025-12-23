@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import '@liveblocks/react-ui/styles.css';
+import '@liveblocks/react-tiptap/styles.css';
 
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { ConvexClientProvider } from '@/components/ConvexClientProvider';
@@ -20,7 +22,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang='en'>
 			<body className={inter.className}>
 				<NuqsAdapter>
 					<ConvexClientProvider>{children}</ConvexClientProvider>

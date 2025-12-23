@@ -69,7 +69,7 @@ const ToolbarButton = ({ onClick, isActive, icon: Icon }: ToolbarButtonProps) =>
 				isActive ? 'bg-neutral-200/80' : ''
 			)}
 		>
-			<Icon className="size-4" />
+			<Icon className='size-4' />
 		</button>
 	);
 };
@@ -93,13 +93,13 @@ const FontFamilyButton = () => {
 						'h-7 w-[120px] shrink-0 flex items-center justify-between rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<span className="truncate">
+					<span className='truncate'>
 						{editor?.getAttributes('textStyle').fontFamily || 'Arial'}
 					</span>
-					<ChevronDownIcon className="ml-2 size-4 shrink-0" />
+					<ChevronDownIcon className='ml-2 size-4 shrink-0' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+			<DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
 				{fonts.map(({ label, value: fontValue }) => (
 					<button
 						onClick={() => editor?.chain().focus().setFontFamily(fontValue).run()}
@@ -111,7 +111,7 @@ const FontFamilyButton = () => {
 						)}
 						style={{ fontFamily: fontValue }}
 					>
-						<span className="text-sm">{label}</span>
+						<span className='text-sm'>{label}</span>
 					</button>
 				))}
 			</DropdownMenuContent>
@@ -149,11 +149,11 @@ const HeadingButton = () => {
 						'h-7 w-[120px] shrink-0 flex items-center justify-between rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<span className="truncate">{getCurrentHeading()}</span>
-					<ChevronDownIcon className="ml-2 size-4 shrink-0" />
+					<span className='truncate'>{getCurrentHeading()}</span>
+					<ChevronDownIcon className='ml-2 size-4 shrink-0' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+			<DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
 				{headings.map(({ label, value, fontSize }) => (
 					<button
 						key={value}
@@ -200,10 +200,10 @@ const HighlightColorButton = () => {
 						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<HighlighterIcon className="size-4" />
+					<HighlighterIcon className='size-4' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-0">
+			<DropdownMenuContent className='p-0'>
 				<SketchPicker onChange={onChange} color={value} />
 			</DropdownMenuContent>
 		</DropdownMenu>
@@ -226,11 +226,11 @@ const TextColorButton = () => {
 						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<span className="text-xs">A</span>
-					<div className="w-full h-0.5" style={{ backgroundColor: value }}></div>
+					<span className='text-xs'>A</span>
+					<div className='w-full h-0.5' style={{ backgroundColor: value }}></div>
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-0">
+			<DropdownMenuContent className='p-0'>
 				<SketchPicker onChange={onChange} color={value} />
 			</DropdownMenuContent>
 		</DropdownMenu>
@@ -256,12 +256,12 @@ const LinkButton = () => {
 						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<Link2Icon className="size-4" />
+					<Link2Icon className='size-4' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-2.5 flex items-center gap-x-2">
+			<DropdownMenuContent className='p-2.5 flex items-center gap-x-2'>
 				<Input
-					placeholder="https://example.com"
+					placeholder='https://example.com'
 					value={value}
 					onChange={e => setValue(e.target.value)}
 				/>
@@ -312,16 +312,16 @@ const ImageButton = () => {
 							'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 						}
 					>
-						<ImageIcon className="size-4" />
+						<ImageIcon className='size-4' />
 					</button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
 					<DropdownMenuItem onClick={onUpload}>
-						<UploadIcon className="size-4 mr-2" />
+						<UploadIcon className='size-4 mr-2' />
 						Upload
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
-						<SearchIcon className="size-4 mr-2" />
+						<SearchIcon className='size-4 mr-2' />
 						Paste Image url
 					</DropdownMenuItem>
 				</DropdownMenuContent>
@@ -334,7 +334,7 @@ const ImageButton = () => {
 						<DialogTitle>Paste Image URL</DialogTitle>
 					</DialogHeader>
 					<Input
-						placeholder="https://example.com/image.jpg"
+						placeholder='https://example.com/image.jpg'
 						value={imageUrl}
 						onChange={e => setImageUrl(e.target.value)}
 						onKeyDown={e => {
@@ -385,10 +385,10 @@ const AlignButton = () => {
 						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<AlignLeftIcon className="size-4" />
+					<AlignLeftIcon className='size-4' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+			<DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
 				{alignments.map(({ label, value, icon: Icon }) => (
 					<button
 						key={value}
@@ -398,8 +398,8 @@ const AlignButton = () => {
 						)}
 						onClick={() => editor?.chain().focus().setTextAlign(value).run()}
 					>
-						<Icon className="size-4" />
-						<span className="text-sm">{label}</span>
+						<Icon className='size-4' />
+						<span className='text-sm'>{label}</span>
 					</button>
 				))}
 			</DropdownMenuContent>
@@ -432,10 +432,10 @@ const ListButton = () => {
 						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<ListIcon className="size-4" />
+					<ListIcon className='size-4' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+			<DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
 				{lists.map(({ label, icon: Icon, isActive, onClick }) => (
 					<button
 						key={label}
@@ -445,8 +445,8 @@ const ListButton = () => {
 						)}
 						onClick={onClick}
 					>
-						<Icon className="size-4" />
-						<span className="text-sm">{label}</span>
+						<Icon className='size-4' />
+						<span className='text-sm'>{label}</span>
 					</button>
 				))}
 			</DropdownMenuContent>
@@ -504,18 +504,18 @@ const FontSizeButton = () => {
 	};
 
 	return (
-		<div className="flex items-center gap-x-0.5">
+		<div className='flex items-center gap-x-0.5'>
 			<button
 				className={
 					'h-7 w-7 shrink-0 flex items-center  justify-center rounded-sm hover:bg-neutral-200/80'
 				}
 				onClick={decrement}
 			>
-				<MinusIcon className="size-4" />
+				<MinusIcon className='size-4' />
 			</button>
 			{isEditing ? (
 				<input
-					type="text"
+					type='text'
 					value={inputValue}
 					onChange={handleInputChange}
 					onBlur={handleInputBlur}
@@ -543,7 +543,7 @@ const FontSizeButton = () => {
 				}
 				onClick={increment}
 			>
-				<PlusIcon className="size-4" />
+				<PlusIcon className='size-4' />
 			</button>
 		</div>
 	);
@@ -567,10 +567,10 @@ const LineHeightButton = () => {
 						'h-7 min-w-7 shrink-0 flex flex-col items-center  justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm'
 					}
 				>
-					<ListCollapseIcon className="size-4" />
+					<ListCollapseIcon className='size-4' />
 				</button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+			<DropdownMenuContent className='p-1 flex flex-col gap-y-1'>
 				{lineHeights.map(({ label, value }) => (
 					<button
 						key={label}
@@ -580,7 +580,7 @@ const LineHeightButton = () => {
 						)}
 						onClick={() => editor?.chain().focus().setLineHeight(value).run()}
 					>
-						<span className="text-sm">{label}</span>
+						<span className='text-sm'>{label}</span>
 					</button>
 				))}
 			</DropdownMenuContent>
@@ -647,8 +647,8 @@ const Toolbar = () => {
 			{
 				label: 'Comment',
 				icon: MessageSquarePlusIcon,
-				isActive: false, // TODO: Enable this functionality
-				onClick: () => console.log('TODO: Comment'),
+				isActive: editor?.isActive('liveblocksCommentMark'),
+				onClick: () => editor?.chain().focus().addPendingComment().run(),
 			},
 			{
 				label: 'List Todo',
@@ -665,23 +665,23 @@ const Toolbar = () => {
 	];
 
 	return (
-		<div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-10 flex items-center gap-x-0.5 overflow-x-auto">
+		<div className='bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-10 flex items-center gap-x-0.5 overflow-x-auto'>
 			{sections[0].map(tool => (
 				<ToolbarButton key={tool.label} {...tool} />
 			))}
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			<FontFamilyButton />
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			<HeadingButton />
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			<FontSizeButton />
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			{sections[1].map(tool => (
 				<ToolbarButton key={tool.label} {...tool} />
 			))}
 			<TextColorButton />
 			<HighlightColorButton />
-			<Separator orientation="vertical" className="h-6 bg-neutral-300" />
+			<Separator orientation='vertical' className='h-6 bg-neutral-300' />
 			<LinkButton />
 			<ImageButton />
 			<AlignButton />

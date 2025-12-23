@@ -24,6 +24,7 @@ import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
 
 import { useEditorStore } from '@/store/use-editor-store';
 import { Ruler } from './Ruler';
+import { Threads } from './Threads';
 
 const Editor = () => {
 	const liveblocks = useLiveblocksExtension();
@@ -40,7 +41,9 @@ const Editor = () => {
 		},
 		extensions: [
 			liveblocks,
-			StarterKit,
+			StarterKit.configure({
+				history: false,
+			}),
 			FontSizeExtension,
 			LineHeightExtension,
 			TaskList,
@@ -96,6 +99,7 @@ const Editor = () => {
 			<Ruler />
 			<div className='min-w-max flex justify-center w-204 py-4 print:py-0 mx-auto print:w-full print:min-w-0'>
 				<EditorContent editor={editor} />
+				<Threads editor={editor} />
 			</div>
 		</div>
 	);
