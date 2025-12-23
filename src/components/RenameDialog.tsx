@@ -13,6 +13,7 @@ import {
 } from './ui/dialog';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import toast from 'react-hot-toast';
 
 interface props {
 	documentId: Id<'documents'>;
@@ -31,10 +32,17 @@ const RenameDialog = ({ documentId, children, initialTitle }: props) => {
 		e.preventDefault();
 		setIsUpdating(true);
 
-		update({ id: documentId, title: title.trim() || 'Untitled' }).finally(() => {
-			setIsUpdating(false);
-			setOpen(false);
-		});
+		update({ id: documentId, title: title.trim() || 'Untitled' })
+			.then(() => {
+				toast.success('Document updated successfully');
+			})
+			.catch(error => {
+				toast.error('Failed to update document');
+			})
+			.finally(() => {
+				setIsUpdating(false);
+				setOpen(false);
+			});
 	};
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
@@ -45,17 +53,17 @@ const RenameDialog = ({ documentId, children, initialTitle }: props) => {
 						<DialogTitle>Rename Document</DialogTitle>
 						<DialogDescription>Enter a new name for this document</DialogDescription>
 					</DialogHeader>
-					<div className="my-4">
+					<div className='my-4'>
 						<Input
 							value={title}
 							onChange={e => setTitle(e.target.value)}
-							placeholder="Document name"
+							placeholder='Document name'
 							onClick={e => e.stopPropagation()}
 						/>
 					</div>
 					<DialogFooter>
 						<Button
-							type="button"
+							type='button'
 							variant={'ghost'}
 							disabled={isUpdating}
 							onClick={e => {
@@ -65,7 +73,7 @@ const RenameDialog = ({ documentId, children, initialTitle }: props) => {
 						>
 							Cancel
 						</Button>
-						<Button type="submit" disabled={isUpdating} onClick={e => e.stopPropagation()}>
+						<Button type='submit' disabled={isUpdating} onClick={e => e.stopPropagation()}>
 							Save
 						</Button>
 					</DialogFooter>

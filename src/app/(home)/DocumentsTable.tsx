@@ -66,8 +66,7 @@ const DocumentsTable = ({ documents, status, loadMore }: Props) => {
 					size={'sm'}
 					onClick={() => loadMore(10)}
 					disabled={status !== 'CanLoadMore'}
-				>
-					{status === 'CanLoadMore' ? 'Load more' : 'End of Results'}
+				> {documents?.length !== 0 ? (status === 'CanLoadMore' ? 'Load more' : 'End of Results') : ''}
 				</Button>
 			</div>
 		</div>

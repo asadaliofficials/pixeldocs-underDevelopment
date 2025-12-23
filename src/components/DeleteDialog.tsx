@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Id } from '../../convex/_generated/dataModel';
 import {
@@ -13,6 +14,7 @@ import {
 } from './ui/alert-dialog';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
+import toast from 'react-hot-toast';
 
 interface props {
 	documentId: Id<'documents'>;
@@ -40,9 +42,17 @@ const DeleteDialog = ({ documentId, children }: props) => {
 						onClick={e => {
 							e.stopPropagation();
 							setIsRemoving(true);
-							deleteDocument({ id: documentId }).finally(() => {
-								setIsRemoving(false);
-							});
+							deleteDocument({ id: documentId })
+								.then(() => {
+									toast.success('Document deleted successfully');
+								})
+								.catch(error => {
+									toast.error('Failed to delete document');
+								})
+
+								.finally(() => {
+									setIsRemoving(false);
+								});
 						}}
 					>
 						Delete
