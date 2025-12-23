@@ -12,7 +12,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
 	return (
 		<ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
 			<ConvexProviderWithClerk useAuth={useAuth} client={convex}>
-				<Authenticated>{children}</Authenticated>
+				{/* <Authenticated>{children}</Authenticated>
 				<Unauthenticated>
 					<div className="flex flex-col justify-center items-center min-h-screen">
 						<SignIn routing="hash" />
@@ -20,7 +20,8 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
 				</Unauthenticated>
 				<AuthLoading>
 					<Loader label="Loading..." />
-				</AuthLoading>
+				</AuthLoading> */}
+				{children}
 			</ConvexProviderWithClerk>
 		</ClerkProvider>
 	);
