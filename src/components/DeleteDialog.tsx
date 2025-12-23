@@ -36,6 +36,7 @@ const DeleteDialog = ({ documentId, children }: props) => {
 				<AlertDialogFooter>
 					<AlertDialogCancel onClick={e => e.stopPropagation()}>Cancel</AlertDialogCancel>
 					<AlertDialogAction
+						disabled={isRemoving}
 						onClick={e => {
 							e.stopPropagation();
 							setIsRemoving(true);
