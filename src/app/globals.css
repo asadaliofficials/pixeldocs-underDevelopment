@@ -142,40 +142,47 @@ body {
 			margin: 0;
 		}
 	}
-	/* Heading styles */
 	h1,
 	h2,
 	h3,
 	h4,
 	h5,
 	h6 {
-		line-height: 1.1;
-		margin-top: 2.5rem;
-		text-wrap: pretty;
-	}
-
-	h1,
-	h2 {
-		margin-top: 3.5rem;
-		margin-bottom: 1.5rem;
+		line-height: 1.2;
+		font-weight: 600;
+		margin-top: 2.25rem;
+		margin-bottom: 0.75rem;
+		text-wrap: balance;
 	}
 
 	h1 {
-		font-size: 1.4rem;
+		font-size: 2rem;
+		margin-top: 3rem;
 	}
 
 	h2 {
-		font-size: 1.2rem;
+		font-size: 1.6rem;
+		margin-top: 2.5rem;
 	}
 
 	h3 {
-		font-size: 1.1rem;
+		font-size: 1.3rem;
 	}
 
-	h4,
-	h5,
-	h6 {
+	h4 {
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+
+	h5 {
 		font-size: 1rem;
+		font-weight: 600;
+	}
+
+	h6 {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
 	}
 
 	/* Table-specific styling */

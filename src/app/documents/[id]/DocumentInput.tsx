@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BsCloudCheck, BsCloudSlash } from 'react-icons/bs';
+import { LoaderIcon } from 'lucide-react';
+import { useMutation } from 'convex/react';
+import { useStatus } from '@liveblocks/react';
+import toast from 'react-hot-toast';
+
 import { Id } from '../../../../convex/_generated/dataModel';
 import { api } from '../../../../convex/_generated/api';
-import { useMutation } from 'convex/react';
 import { useDebounce } from '@/hooks/use-debounce';
-import toast from 'react-hot-toast';
-import { useStatus } from '@liveblocks/react';
-import { LoaderIcon } from 'lucide-react';
 
 interface DocumentInputProps {
 	title: string;
@@ -15,75 +16,92 @@ interface DocumentInputProps {
 
 const DocumentInput = ({ title, id }: DocumentInputProps) => {
 	const status = useStatus();
-	const [value, setValue] = useState(title);
+	const mutate = useMutation(api.documents.updateById);
 
+	const [value, setValue] = useState(title);
 	const [isEditing, setIsEditing] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [isError, setIsError] = useState(false);
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const mutate = useMutation(api.documents.updateById);
+	const isConnected = status === 'connected';
+	const isSyncing = status === 'connecting' || status === 'reconnecting';
 
-	const debouncedUpdate = useDebounce((newValue: string) => {
-		if (newValue === title) return;
+	useEffect(() => {
+		setValue(title);
+		setIsEditing(false);
+		setIsPending(false);
+		setIsError(false);
+	}, [title]);
+
+	const updateTitle = async (newTitle: string) => {
+		if (!isConnected || newTitle === title) return;
+
 		setIsPending(true);
-		mutate({ id, title: newValue })
-			.then(() => toast.success('Document updated'))
-			.catch(() => toast.error('Failed to update document'))
-			.finally(() => setIsPending(false));
-	});
+		setIsError(false);
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		try {
+			await mutate({ id, title: newTitle });
+			toast.success('Document updated');
+		} catch {
+			setIsError(true);
+			toast.error('Failed to update document');
+		} finally {
+			setIsPending(false);
+		}
+	};
+
+	const debouncedUpdate = useDebounce(updateTitle);
+
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		setIsPending(true);
-		mutate({ id, title: value })
-			.then(() => {
-				toast.success('Document updated');
-				setIsEditing(false);
-			})
-			.catch(() => toast.error('Failed to update document'))
-			.finally(() => setIsPending(false));
+		updateTitle(value);
+		setIsEditing(false);
 	};
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setValue(e.target.value);
-		debouncedUpdate(e.target.value);
+	const handleBlur = () => {
+		updateTitle(value);
+		setIsEditing(false);
 	};
 
-	const showLoader = isPending || status === 'connecting' || status === 'reconnecting';
 	const showError = isError || status === 'disconnected';
+
 	return (
 		<div className='flex items-center gap-2'>
 			{isEditing ? (
 				<form onSubmit={handleSubmit} className='relative w-fit max-w-[50ch]'>
+					{/* Width auto-sizing trick */}
 					<span className='invisible whitespace-pre px-1.5 text-lg'>{value || ' '}</span>
 					<input
 						ref={inputRef}
 						value={value}
-						onBlur={() => setIsEditing(false)}
+						onChange={e => {
+							setValue(e.target.value);
+							debouncedUpdate(e.target.value);
+						}}
+						onBlur={handleBlur}
 						className='absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate'
-						onChange={onChange}
 					/>
 				</form>
 			) : (
 				<span
 					onClick={() => {
+						if (!isConnected) return;
 						setIsEditing(true);
-						setTimeout(() => {
-							inputRef.current?.focus();
-						}, 0);
+						setTimeout(() => inputRef.current?.focus(), 0);
 					}}
 					className='text-lg px-1.5 cursor-pointer truncate'
 				>
-					{value || 'Untitled'}
+					{title || 'Untitled'}
 				</span>
 			)}
+
 			{showError && <BsCloudSlash className='size-4' />}
-			{!showError && showLoader && (
+			{!showError && (isPending || isSyncing) && (
 				<LoaderIcon className='size-4 animate-spin text-muted-foreground' />
 			)}
-			{!showError && !showLoader && <BsCloudCheck className='size-4' />}
+			{!showError && !isPending && !isSyncing && <BsCloudCheck className='size-4' />}
 		</div>
 	);
 };
