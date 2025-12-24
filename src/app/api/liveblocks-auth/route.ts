@@ -37,11 +37,18 @@ export async function POST(req: Request) {
 		return new Response('Unauthorized', { status: 401 });
 	}
 
+	const name =
+		user.fullName ?? user.firstName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous';
+	const hash = [...name].reduce((acc, char) => (acc * 31 + (char.codePointAt(0) ?? 0)) >>> 0, 0);
+
+	const hue = hash % 360;
+	const color = `hsl(${hue}, 70%, 55%)`;
+
 	const session = liveblocks.prepareSession(user.id, {
 		userInfo: {
-			name:
-				user.fullName ?? user.firstName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous',
+			name,
 			avatar: user.imageUrl ?? undefined,
+			color,
 		},
 	});
 	session.allow(room, session.FULL_ACCESS);
