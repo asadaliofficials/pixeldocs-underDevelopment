@@ -22,31 +22,31 @@ interface Props {
 const DocumentsTable = ({ documents, status, loadMore }: Props) => {
 	if (status === 'LoadingFirstPage') {
 		return (
-			<div className="flex justify-center items-center h-24">
-				<LoaderIcon className="animate-spin text-muted-foreground size-5" />
+			<div className='flex justify-center items-center h-24'>
+				<LoaderIcon className='animate-spin text-muted-foreground size-5' />
 			</div>
 		);
 	}
 	return (
-		<div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5">
+		<div className='max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5'>
 			{documents === undefined ? (
-				<div className="flex justify-center items-center h-24">
-					<LoaderIcon className="animate-spin text-muted-foreground size-5" />
+				<div className='flex justify-center items-center h-24'>
+					<LoaderIcon className='animate-spin text-muted-foreground size-5' />
 				</div>
 			) : (
 				<Table>
 					<TableHeader>
-						<TableRow className="hover:bg-transparent border-none">
+						<TableRow className='hover:bg-transparent border-none'>
 							<TableHead>Name</TableHead>
 							<TableHead>&nbsp;</TableHead>
-							<TableHead className="hidden md:table-cell">Shared</TableHead>
-							<TableHead className="hidden md:table-cell">Created at</TableHead>
+							<TableHead className='hidden md:table-cell'>Shared</TableHead>
+							<TableHead className='hidden md:table-cell'>Created at</TableHead>
 						</TableRow>
 					</TableHeader>
 					{documents.length === 0 ? (
 						<TableBody>
-							<TableRow className="hover:bg-transparent border-none">
-								<TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
+							<TableRow className='hover:bg-transparent border-none'>
+								<TableCell colSpan={4} className='h-24 text-center text-muted-foreground'>
 									No documents found
 								</TableCell>
 							</TableRow>
@@ -60,13 +60,18 @@ const DocumentsTable = ({ documents, status, loadMore }: Props) => {
 					)}
 				</Table>
 			)}
-			<div className="flex items-center justify-center">
+			<div className='flex items-center justify-center'>
 				<Button
 					variant={'ghost'}
 					size={'sm'}
 					onClick={() => loadMore(10)}
 					disabled={status !== 'CanLoadMore'}
-				> {documents?.length !== 0 ? (status === 'CanLoadMore' ? 'Load more' : 'End of Results') : ''}
+				>
+					{documents?.length !== 0
+						? status === 'CanLoadMore'
+							? 'Load more'
+							: 'End of Results'
+						: ''}
 				</Button>
 			</div>
 		</div>

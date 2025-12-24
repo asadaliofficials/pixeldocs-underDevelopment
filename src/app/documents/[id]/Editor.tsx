@@ -42,6 +42,7 @@ const Editor = ({ initialContent }: Props) => {
 	const rightMargin = useStorage(storage => storage.rightMargin);
 
 	const editor = useEditor({
+		autofocus: true,
 		immediatelyRender: false,
 		editorProps: {
 			attributes: {

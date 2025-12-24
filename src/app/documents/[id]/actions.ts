@@ -22,6 +22,7 @@ export async function getUsers() {
 		id: user.id,
 		name: user.fullName ?? user.firstName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous',
 		avatar: user.imageUrl,
+		color: '',
 	}));
 
 	return users;

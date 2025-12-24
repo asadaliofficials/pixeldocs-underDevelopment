@@ -12,6 +12,7 @@ type User = {
 	id: string;
 	name: string;
 	avatar: string;
+	color: string;
 };
 
 export function Room({ children }: { children: ReactNode }) {
@@ -70,7 +71,9 @@ export function Room({ children }: { children: ReactNode }) {
 			}}
 		>
 			<RoomProvider id={params.id as string} initialStorage={{ leftMargin: 56, rightMargin: 56 }}>
-				<ClientSideSuspense fallback={<Loader label='Loading room...' />}>{children}</ClientSideSuspense>
+				<ClientSideSuspense fallback={<Loader label='Loading room...' />}>
+					{children}
+				</ClientSideSuspense>
 			</RoomProvider>
 		</LiveblocksProvider>
 	);
