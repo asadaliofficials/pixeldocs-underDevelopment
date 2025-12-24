@@ -69,8 +69,8 @@ export function Room({ children }: { children: ReactNode }) {
 				}));
 			}}
 		>
-			<RoomProvider id={params.id as string}>
-				<ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense>
+			<RoomProvider id={params.id as string} initialStorage={{ leftMargin: 56, rightMargin: 56 }}>
+				<ClientSideSuspense fallback={<Loader label='Loading room...' />}>{children}</ClientSideSuspense>
 			</RoomProvider>
 		</LiveblocksProvider>
 	);
