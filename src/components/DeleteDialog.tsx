@@ -45,8 +45,13 @@ const DeleteDialog = ({ documentId, children }: props) => {
 							deleteDocument({ id: documentId })
 								.then(() => {
 									toast.success('Document deleted successfully');
+									// i want if the user is not on / page then push him to / page
+									if (window.location.pathname !== '/') {
+										window.location.href = '/';
+									}
 								})
 								.catch(error => {
+									console.log(error);
 									toast.error('Failed to delete document');
 								})
 

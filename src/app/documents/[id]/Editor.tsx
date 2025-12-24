@@ -27,8 +27,15 @@ import { Ruler } from './Ruler';
 import { Threads } from './Threads';
 import { useStorage } from '@liveblocks/react';
 
-const Editor = () => {
-	const liveblocks = useLiveblocksExtension();
+interface Props {
+	initialContent: string | undefined;
+}
+
+const Editor = ({ initialContent }: Props) => {
+	const liveblocks = useLiveblocksExtension({
+		initialContent,
+		offlineSupport_experimental: true,
+	});
 	const { setEditor } = useEditorStore();
 
 	const leftMargin = useStorage(storage => storage.leftMargin);

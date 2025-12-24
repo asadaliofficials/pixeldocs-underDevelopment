@@ -39,6 +39,12 @@ import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { Avatars } from './Avatars';
 import { Inbox } from './Inbox';
 import { Doc } from '../../../../convex/_generated/dataModel';
+import { useRouter } from 'next/navigation';
+import { useMutation } from 'convex/react';
+import { api } from '../../../../convex/_generated/api';
+import toast from 'react-hot-toast';
+import DeleteDialog from '@/components/DeleteDialog';
+import RenameDialog from '@/components/RenameDialog';
 
 interface NavbarProps {
 	data: Doc<'documents'>;
@@ -47,8 +53,26 @@ interface NavbarProps {
 const Navbar = ({ data }: NavbarProps) => {
 	const { editor } = useEditorStore();
 
+	const router = useRouter();
+
+	const mutation = useMutation(api.documents.create);
+
+	const onNewDocument = () => {
+		mutation({
+			title: 'Untitled Document',
+			initialContent: '',
+		})
+			.then(id => {
+				router.push(`/documents/${id}`);
+			})
+			.catch(err => {
+				console.log(err);
+				toast.error('Failed to create document');
+			});
+	};
+
 	const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
-		editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: true }).run();
+		editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run();
 	};
 
 	const CallFunctionWithDelay = (func: () => void) => {
@@ -137,19 +161,29 @@ const Navbar = ({ data }: NavbarProps) => {
 											</MenubarItem>
 										</MenubarSubContent>
 									</MenubarSub>
-									<MenubarItem>
+									<MenubarItem onClick={onNewDocument}>
 										<FilePlusIcon className='size-4 mr-2' />
 										New Document
 									</MenubarItem>
 									<MenubarSeparator />
-									<MenubarItem>
-										<FilePenIcon className='size-4 mr-2' />
-										Rename
-									</MenubarItem>
-									<MenubarItem>
-										<TrashIcon className='size-4 mr-2' />
-										Remove
-									</MenubarItem>
+									<RenameDialog documentId={data._id} initialTitle={data.title}>
+										<MenubarItem
+											onClick={e => e.stopPropagation()}
+											onSelect={e => e.preventDefault()}
+										>
+											<FilePenIcon className='size-4 mr-2' />
+											Rename
+										</MenubarItem>
+									</RenameDialog>
+									<DeleteDialog documentId={data._id}>
+										<MenubarItem
+											onClick={e => e.stopPropagation()}
+											onSelect={e => e.preventDefault()}
+										>
+											<TrashIcon className='size-4 mr-2' />
+											Remove
+										</MenubarItem>
+									</DeleteDialog>
 									<MenubarSeparator />
 									<MenubarItem onClick={() => CallFunctionWithDelay(() => window.print())}>
 										<PrinterIcon className='size-4 mr-2' />
