@@ -3,7 +3,6 @@
 import { ClientSideSuspense } from '@liveblocks/react';
 import { useOthers, useSelf } from '@liveblocks/react/suspense';
 
-import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 
 const AVATAR_SIZE = 36;
