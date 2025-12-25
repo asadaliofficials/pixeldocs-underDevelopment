@@ -2,7 +2,7 @@
 
 PixelDocs is a full-stack Google Docs clone built with **Next.js 15**, **Liveblocks**, and **Convex**. It features a powerful real-time rich-text editor, collaborative tools, and a premium modern UI, designed to provide a seamless document editing experience.
 
-![Project Preview](/screenshot.png)
+![Project Preview](Screenshot.png)
 
 ## Key Features
 
@@ -70,7 +70,7 @@ Follow these steps to set up the project locally on your machine.
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourusername/pixeldocs.git
+git clone https://github.com/asadaliofficials/pixeldocs.git
 cd pixeldocs
 ```
 
