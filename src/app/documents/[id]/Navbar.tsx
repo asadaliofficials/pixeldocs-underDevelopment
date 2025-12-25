@@ -276,12 +276,14 @@ const Navbar = ({ data }: NavbarProps) => {
 			<div className='flex gap-3 items-center pl-6'>
 				<Avatars />
 				<Inbox />
-				<OrganizationSwitcher
-					afterCreateOrganizationUrl='/'
-					afterLeaveOrganizationUrl='/'
-					afterSelectOrganizationUrl='/'
-					afterSelectPersonalUrl='/'
-				/>
+				<div className='hidden sm:block'>
+					<OrganizationSwitcher
+						afterCreateOrganizationUrl='/'
+						afterLeaveOrganizationUrl='/'
+						afterSelectOrganizationUrl='/'
+						afterSelectPersonalUrl='/'
+					/>
+				</div>
 				<UserButton />
 			</div>
 		</nav>

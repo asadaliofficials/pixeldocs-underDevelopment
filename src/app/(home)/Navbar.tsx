@@ -11,18 +11,20 @@ const Navbar = () => {
 				<Link href='/'>
 					<Image src='/logo.svg' alt='Logo' width={36} height={36} />
 				</Link>
-				<h3 className='text-xl'>Pixel Docs</h3>
+				<h3 className='text-xl hidden sm:block'>Pixel Docs</h3>
 			</div>
 			<React.Suspense fallback={<div />}>
 				<SearchInput />
 			</React.Suspense>
 			<div className='flex gap-3 items-center pl-6'>
-				<OrganizationSwitcher
-					afterCreateOrganizationUrl='/'
-					afterLeaveOrganizationUrl='/'
-					afterSelectOrganizationUrl='/'
-					afterSelectPersonalUrl='/'
-				/>
+				<div className='hidden sm:block'>
+					<OrganizationSwitcher
+						afterCreateOrganizationUrl='/'
+						afterLeaveOrganizationUrl='/'
+						afterSelectOrganizationUrl='/'
+						afterSelectPersonalUrl='/'
+					/>
+				</div>
 				<UserButton />
 			</div>
 		</nav>
